@@ -571,6 +571,18 @@ var definePinchZoom = function () {
             }
         },
 
+        unbindEvents: function () {
+            var self = this;
+            this.updatePlaned = true;
+            window.removeEventListener('resize', this.update);
+            Array.from(this.el.querySelectorAll('img')).forEach(function(imgEl) {
+              imgEl.removeEventListener('load', self.update);
+            });
+            if (this.el.nodeName === 'IMG') {
+              this.el.removeEventListener('load', this.update);
+            }
+        },
+
         /**
          * Updates the css values according to the current zoom factor and offset
          */
